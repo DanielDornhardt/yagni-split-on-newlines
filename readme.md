@@ -21,7 +21,7 @@ Use the handy helper in your templates like this:
         <p>{{this}}</p>
     {{/each}}
 
-To wrap each line of a plaintext-string in <p>s. Of course you can vary the loop body however you want.
+To wrap each line of a plaintext-string in \<p\>s. Of course you can vary the loop body however you want.
 
 
 or use it via function call:
