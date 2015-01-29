@@ -1,22 +1,34 @@
 yagni-split-on-newlines
 ===
 
+Synopsis
+---
+
+Display line breaks or multiple paragraphs from plain text.
+
+Create simple and secure output by decorating or iterating over each line of plain text.
+
+Allows displaying of plain text without increasing the risk of cross-site-scripting - attacks
+on your users by keeping the default HTML escaping (no triple-curly-braces required for text output).
+
+
 Usage
 ---
 
-either use it via function call:
-
-    splitOnNewlines("My\nText\nwith\nNewlines");
-
-(Returns this array: ["My", "Text", "with", "Newlines"])
-
-or use the handy helper in your templates like this:
+Use the handy helper in your templates like this:
 
     {{#each splitOnNewlines someText}}
         <p>{{this}}</p>
     {{/each}}
 
 To wrap each line of a plaintext-string in <p>s. Of course you can vary the loop body however you want.
+
+
+or use it via function call:
+
+    lines = splitOnNewlines("My\nText\nwith\nNewlines");
+
+(Returns this array: ["My", "Text", "with", "Newlines"])
 
 Installation
 ---
@@ -27,13 +39,18 @@ To install:
 
     meteor add yagni:split-on-newlines
 
-Synopsis
+How it works / details
 ---
 
-Use it to create simple and secure output from plain text.
+The code:
 
-Allows displaying of plain text without increasing the risk of cross-site-scripting - attacks
-on your users by keeping the default HTML escaping (no triple-curly-braces required for text output).
+    _.filter (('' + text).split /\r?\n|\r/), (line) ->
+      return line
+
+The input string will be split using the regex "/\r?\n|\r/" which should be able to detect most common line ending formats
+(win / mac / unix).
+
+Empty lines will be discarded, but it's possible to make non-empty lines by using eg. a whitespace character on a line.
 
 License
 ---
